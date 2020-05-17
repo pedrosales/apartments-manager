@@ -1,0 +1,27 @@
+using System;
+
+namespace ApartmentsManager.Domain.Entities
+{
+    public class Resident : Entity
+    {
+        public Resident(string name, DateTime birthDate, string phone, string cpf, string email)
+        {
+            Name = name;
+            BirthDate = birthDate;
+            Phone = phone;
+            CPF = cpf;
+            Email = email;
+        }
+
+        public string Name { get; private set; }
+        public DateTime BirthDate { get; private set; }
+        public string Phone { get; private set; }
+        public string CPF { get; private set; }
+        public string Email { get; private set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+    }
+}

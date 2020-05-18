@@ -1,5 +1,6 @@
 using System;
-using ApartmentsManager.Domain.Commands;
+using ApartmentsManager.Domain.Commands.Requests;
+using ApartmentsManager.Domain.Commands.Results;
 using ApartmentsManager.Domain.Handlers;
 using ApartmentsManager.Tests.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

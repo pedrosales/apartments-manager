@@ -3,7 +3,7 @@ using ApartmentsManager.Domain.Commands.Contracts;
 using Flunt.Notifications;
 using Flunt.Validations;
 
-namespace ApartmentsManager.Domain.Commands
+namespace ApartmentsManager.Domain.Commands.Requests
 {
     public class CreateResidentCommand : Notifiable, ICommand
     {

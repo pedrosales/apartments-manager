@@ -1,5 +1,5 @@
 using System;
-using ApartmentsManager.Domain.Commands;
+using ApartmentsManager.Domain.Commands.Requests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ApartmentsManager.Tests.CommandTests

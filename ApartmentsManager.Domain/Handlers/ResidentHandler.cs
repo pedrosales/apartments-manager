@@ -1,10 +1,11 @@
 using System;
-using ApartmentsManager.Domain.Commands;
+using ApartmentsManager.Domain.Commands.Requests;
 using ApartmentsManager.Domain.Commands.Contracts;
 using ApartmentsManager.Domain.Entities;
 using ApartmentsManager.Domain.Handlers.Contracts;
 using ApartmentsManager.Domain.Repositories;
 using Flunt.Notifications;
+using ApartmentsManager.Domain.Commands.Results;
 
 namespace ApartmentsManager.Domain.Handlers
 {
@@ -37,8 +38,16 @@ namespace ApartmentsManager.Domain.Handlers
                 return new GenericCommandResult(false, "Erro inesperado!", ex.Message);
             }
 
-
-            return new GenericCommandResult(true, "Morador salvo com sucesso!", resident);
+            var residentResult = new CreateResidentCommandResult
+            {
+                Name = resident.Name,
+                BirthDate = resident.BirthDate,
+                Cpf = resident.Cpf,
+                Email = resident.Email,
+                Phone = resident.Phone,
+                User = resident.User
+            };
+            return new GenericCommandResult(true, "Morador salvo com sucesso!", residentResult);
         }
     }
 }

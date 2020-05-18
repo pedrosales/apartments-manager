@@ -1,6 +1,6 @@
 using ApartmentsManager.Domain.Commands.Contracts;
 
-namespace ApartmentsManager.Domain.Commands
+namespace ApartmentsManager.Domain.Commands.Results
 {
     public class GenericCommandResult : ICommandResult
     {

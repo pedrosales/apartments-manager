@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using ApartmentsManager.Domain.Commands;
-using ApartmentsManager.Domain.Entities;
+using ApartmentsManager.Domain.Commands.Requests;
+using ApartmentsManager.Domain.Commands.Results;
 using ApartmentsManager.Domain.Handlers;
 using ApartmentsManager.Domain.Queries.Results;
 using ApartmentsManager.Domain.Repositories;

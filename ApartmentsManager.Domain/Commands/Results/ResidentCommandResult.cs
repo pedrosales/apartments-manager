@@ -2,7 +2,7 @@ using System;
 
 namespace ApartmentsManager.Domain.Commands.Results
 {
-    public class CreateResidentCommandResult
+    public class ResidentCommandResult
     {
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }

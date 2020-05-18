@@ -9,7 +9,9 @@ using ApartmentsManager.Domain.Commands.Results;
 
 namespace ApartmentsManager.Domain.Handlers
 {
-    public class ResidentHandler : Notifiable, IHandler<CreateResidentCommand>
+    public class ResidentHandler : Notifiable,
+        IHandler<CreateResidentCommand>,
+        IHandler<UpdateResidentCommand>
     {
         private readonly IResidentRepository _repository;
 
@@ -38,7 +40,44 @@ namespace ApartmentsManager.Domain.Handlers
                 return new GenericCommandResult(false, "Erro inesperado!", ex.Message);
             }
 
-            var residentResult = new CreateResidentCommandResult
+            var residentResult = new ResidentCommandResult
+            {
+                Name = resident.Name,
+                BirthDate = resident.BirthDate,
+                Cpf = resident.Cpf,
+                Email = resident.Email,
+                Phone = resident.Phone,
+                User = resident.User
+            };
+            return new GenericCommandResult(true, "Morador salvo com sucesso!", residentResult);
+        }
+
+        public ICommandResult Handle(UpdateResidentCommand command)
+        {
+            // Fail Fast Validation
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Ops, erro ao atualizar morador.", command.Notifications);
+
+            // Cria morador
+            var resident = _repository.GetById(command.Id, command.User);
+
+            if (resident == null)
+                return new GenericCommandResult(false, "Ops, erro ao atualizar morador.", command.Id);
+
+            resident.UpdateResident(command.Name, command.BirthDate, command.Phone, command.Email);
+
+            try
+            {
+                // Salva morador
+                _repository.Update(resident);
+            }
+            catch (Exception ex)
+            {
+                return new GenericCommandResult(false, "Erro inesperado!", ex.Message);
+            }
+
+            var residentResult = new ResidentCommandResult
             {
                 Name = resident.Name,
                 BirthDate = resident.BirthDate,

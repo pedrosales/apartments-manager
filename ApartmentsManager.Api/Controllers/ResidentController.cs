@@ -25,6 +25,18 @@ namespace ApartmentsManager.Api.Controllers
             return result;
         }
 
+        [HttpPut]
+        [Route("")]
+        public GenericCommandResult Put(
+            [FromBody] UpdateResidentCommand command,
+            [FromServices] ResidentHandler handler
+        )
+        {
+            command.User = "Pedro Ivo";
+            var result = (GenericCommandResult)handler.Handle(command);
+            return result;
+        }
+
         [HttpGet]
         [Route("")]
         public IEnumerable<GetResidentQueryResult> GetAll(

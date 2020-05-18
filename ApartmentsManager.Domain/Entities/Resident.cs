@@ -21,6 +21,21 @@ namespace ApartmentsManager.Domain.Entities
         public string Email { get; private set; }
         public string User { get; private set; }
 
+        public void UpdateResident(string name, DateTime birthDate, string phone, string email)
+        {
+            if (!string.IsNullOrEmpty(name) && !Name.Equals(name))
+                Name = name;
+
+            if (birthDate != DateTime.MinValue)
+                BirthDate = birthDate;
+
+            if (!string.IsNullOrEmpty(phone) && !Phone.Equals(phone))
+                Phone = phone;
+
+            if (!string.IsNullOrEmpty(email) && !Email.Equals(phone))
+                Email = email;
+        }
+
         public override string ToString()
         {
             return Name;

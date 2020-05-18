@@ -10,6 +10,12 @@ namespace ApartmentsManager.Domain.Handlers
     public class ResidentHandler : Notifiable, IHandler<CreateResidentCommand>
     {
         private readonly IResidentRepository _repository;
+
+        public ResidentHandler(IResidentRepository repository)
+        {
+            _repository = repository;
+        }
+
         public ICommandResult Handle(CreateResidentCommand command)
         {
             // Fail Fast Validation

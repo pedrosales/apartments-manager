@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ApartmentsManager.Domain.Entities;
+using ApartmentsManager.Domain.Queries;
 using ApartmentsManager.Domain.Repositories;
 
 namespace ApartmentsManager.Tests.Repositories
@@ -20,12 +22,22 @@ namespace ApartmentsManager.Tests.Repositories
         }
         public void Create(Resident resident)
         {
-            _items.Add(resident);
+
         }
 
-        public IEnumerable<Resident> GetAll()
+        public IEnumerable<Resident> GetAll(string user)
         {
-            return _items;
+            return _items.AsQueryable().Where(ResidentQueries.GetAll(user));
+        }
+
+        public Resident GetById(Guid id, string user)
+        {
+            return new Resident("Morador 1", DateTime.Now, "31985412356", "09370469656", "morador1@gmail.com", "Pedro Ivo");
+        }
+
+        public void Update(Resident resident)
+        {
+
         }
     }
 }

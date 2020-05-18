@@ -2,9 +2,9 @@ using ApartmentsManager.Domain.Handlers;
 using ApartmentsManager.Domain.Repositories;
 using ApartmentsManager.Infra.Contexts;
 using ApartmentsManager.Infra.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,10 +19,17 @@ namespace ApartmentsManager.Api
         {
             services.AddControllers();
 
+            // Injeta o contexto da aplicaçãp
             services.AddDbContext<ApartmentsManagerContext>(opt => opt.UseInMemoryDatabase("ApartmentsManager"));
 
+            // Injeta repositorios
             services.AddTransient<IResidentRepository, ResidentRepository>();
+
+            //Injeta handlers
             services.AddTransient<ResidentHandler, ResidentHandler>();
+
+            // Injet o AutoMapper
+            services.AddAutoMapper(typeof(Startup).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

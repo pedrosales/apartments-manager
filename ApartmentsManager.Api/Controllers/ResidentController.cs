@@ -4,6 +4,7 @@ using ApartmentsManager.Domain.Entities;
 using ApartmentsManager.Domain.Handlers;
 using ApartmentsManager.Domain.Queries.Results;
 using ApartmentsManager.Domain.Repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentsManager.Api.Controllers
@@ -26,12 +27,14 @@ namespace ApartmentsManager.Api.Controllers
 
         [HttpGet]
         [Route("")]
-        public IEnumerable<Resident> GetAll(
-            [FromServices] IResidentRepository repository
+        public IEnumerable<GetResidentQueryResult> GetAll(
+            [FromServices] IResidentRepository repository,
+            [FromServices] IMapper mapper
         )
         {
             var user = "Pedro Ivo";
-            return repository.GetAll(user);
+            var result = repository.GetAll(user);
+            return mapper.Map<List<GetResidentQueryResult>>(result);
         }
     }
 }

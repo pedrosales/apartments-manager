@@ -9,13 +9,14 @@ namespace ApartmentsManager.Domain.Commands
     {
         public CreateResidentCommand() { }
 
-        public CreateResidentCommand(string name, DateTime birthDate, string phone, string cpf, string email)
+        public CreateResidentCommand(string name, DateTime birthDate, string phone, string cpf, string email, string user)
         {
             Name = name;
             BirthDate = birthDate;
             Phone = phone;
             CPF = cpf;
             Email = email;
+            User = user;
         }
 
         public string Name { get; set; }
@@ -23,6 +24,7 @@ namespace ApartmentsManager.Domain.Commands
         public string Phone { get; set; }
         public string CPF { get; set; }
         public string Email { get; set; }
+        public string User { get; set; }
 
         public void Validate()
         {
@@ -35,6 +37,7 @@ namespace ApartmentsManager.Domain.Commands
                     .HasMinLen(Phone, 11, "Phone", "Número de telefone inválido")
                     .HasMinLen(CPF, 11, "CPF", "CPF inválido")
                     .IsEmail(Email, "Email", "Email inválido")
+                    .HasMinLen(User, 6, "User", "Usuário inválido")
             );
         }
     }

@@ -7,8 +7,8 @@ namespace ApartmentsManager.Tests.CommandTests
     [TestClass]
     public class CreateResidentCommandTests
     {
-        private readonly CreateResidentCommand _invalidCommand = new CreateResidentCommand("", DateTime.Now, "", "", "");
-        private readonly CreateResidentCommand _validCommand = new CreateResidentCommand("Pedro Ivo", DateTime.Parse("08-08-1988"), "31994969424", "09370469656", "pedroivossantos@gmail.com");
+        private readonly CreateResidentCommand _invalidCommand = new CreateResidentCommand("", DateTime.Now, "", "", "", "");
+        private readonly CreateResidentCommand _validCommand = new CreateResidentCommand("Morador 1", DateTime.Parse("08-08-1988"), "31994969424", "09370469656", "pedroivossantos@gmail.com", "Pedro Ivo");
         public CreateResidentCommandTests()
         {
             _invalidCommand.Validate();

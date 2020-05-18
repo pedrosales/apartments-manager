@@ -16,13 +16,15 @@ namespace ApartmentsManager.Infra.Contexts
         {
             modelBuilder.Entity<Resident>().ToTable("Resident");
             modelBuilder.Entity<Resident>().Property(x => x.Id);
+            modelBuilder.Entity<Resident>().Ignore(x => x.Notifications);
             modelBuilder.Entity<Resident>().Property(x => x.User).HasMaxLength(120).HasColumnType("varchar(120)");
             modelBuilder.Entity<Resident>().Property(x => x.Name).HasMaxLength(160).HasColumnType("varchar(160)");
             modelBuilder.Entity<Resident>().Property(x => x.BirthDate);
             modelBuilder.Entity<Resident>().Property(x => x.Phone).HasMaxLength(11).HasColumnType("varchar(11)");
-            modelBuilder.Entity<Resident>().Property(x => x.CPF).HasMaxLength(11).HasColumnType("varchar(11)");
+            modelBuilder.Entity<Resident>().Property(x => x.Cpf).HasMaxLength(11).HasColumnType("varchar(11)");
             modelBuilder.Entity<Resident>().HasIndex(x => x.User);
-            modelBuilder.Entity<Resident>().HasIndex(x => x.CPF);
+            modelBuilder.Entity<Resident>().HasIndex(x => x.Cpf);
+            modelBuilder.Entity<Resident>().HasIndex(x => x.Email);
         }
     }
 }

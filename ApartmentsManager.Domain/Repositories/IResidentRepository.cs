@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ApartmentsManager.Domain.Entities;
+using ApartmentsManager.Domain.Queries.Results;
 
 namespace ApartmentsManager.Domain.Repositories
 {

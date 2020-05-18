@@ -1,3 +1,4 @@
+using System;
 using ApartmentsManager.Domain.Commands;
 using ApartmentsManager.Domain.Commands.Contracts;
 using ApartmentsManager.Domain.Entities;
@@ -24,10 +25,18 @@ namespace ApartmentsManager.Domain.Handlers
                 return new GenericCommandResult(false, "Ops, erro ao cadastrar morador.", command.Notifications);
 
             // Cria morador
-            var resident = new Resident(command.Name, command.BirthDate, command.Phone, command.CPF, command.Email, command.User);
+            var resident = new Resident(command.Name, command.BirthDate, command.Phone, command.Cpf, command.Email, command.User);
 
-            // Salva morador
-            _repository.Create(resident);
+            try
+            {
+                // Salva morador
+                _repository.Create(resident);
+            }
+            catch (Exception ex)
+            {
+                return new GenericCommandResult(false, "Erro inesperado!", ex.Message);
+            }
+
 
             return new GenericCommandResult(true, "Morador salvo com sucesso!", resident);
         }

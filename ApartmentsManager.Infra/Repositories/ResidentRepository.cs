@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ApartmentsManager.Domain.Entities;
 using ApartmentsManager.Domain.Queries;
+using ApartmentsManager.Domain.Queries.Results;
 using ApartmentsManager.Domain.Repositories;
 using ApartmentsManager.Infra.Contexts;
 using Microsoft.EntityFrameworkCore;

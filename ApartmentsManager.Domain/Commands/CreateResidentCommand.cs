@@ -14,7 +14,7 @@ namespace ApartmentsManager.Domain.Commands
             Name = name;
             BirthDate = birthDate;
             Phone = phone;
-            CPF = cpf;
+            Cpf = cpf;
             Email = email;
             User = user;
         }
@@ -22,7 +22,7 @@ namespace ApartmentsManager.Domain.Commands
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
         public string Phone { get; set; }
-        public string CPF { get; set; }
+        public string Cpf { get; set; }
         public string Email { get; set; }
         public string User { get; set; }
 
@@ -35,7 +35,7 @@ namespace ApartmentsManager.Domain.Commands
                     .IsGreaterThan(BirthDate, DateTime.MinValue, "BirthDate", "Data de nascimento é inválida")
                     .IsLowerThan(BirthDate, DateTime.MaxValue, "BirthDate", "Data de nascimento é inválida")
                     .HasMinLen(Phone, 11, "Phone", "Número de telefone inválido")
-                    .HasMinLen(CPF, 11, "CPF", "CPF inválido")
+                    .HasMinLen(Cpf, 11, "CPF", "CPF inválido")
                     .IsEmail(Email, "Email", "Email inválido")
                     .HasMinLen(User, 6, "User", "Usuário inválido")
             );

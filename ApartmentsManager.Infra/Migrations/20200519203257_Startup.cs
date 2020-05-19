@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ApartmentsManager.Infra.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Startup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

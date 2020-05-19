@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentsManager.Infra.Migrations
 {
     [DbContext(typeof(ApartmentsManagerContext))]
-    [Migration("20200519202052_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20200519203257_Startup")]
+    partial class Startup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

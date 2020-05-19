@@ -1,11 +1,11 @@
 using System;
-using ApartmentsManager.Domain.Commands.Requests;
 using ApartmentsManager.Domain.Commands.Contracts;
 using ApartmentsManager.Domain.Entities;
 using ApartmentsManager.Domain.Handlers.Contracts;
 using ApartmentsManager.Domain.Repositories;
 using Flunt.Notifications;
 using ApartmentsManager.Domain.Commands.Results;
+using ApartmentsManager.Domain.Commands.Requests.Residents;
 
 namespace ApartmentsManager.Domain.Handlers
 {

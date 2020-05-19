@@ -1,5 +1,5 @@
 using System;
-using ApartmentsManager.Domain.Commands.Requests;
+using ApartmentsManager.Domain.Commands.Requests.Residents;
 using ApartmentsManager.Domain.Commands.Results;
 using ApartmentsManager.Domain.Handlers;
 using ApartmentsManager.Tests.Repositories;

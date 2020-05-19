@@ -8,6 +8,8 @@ namespace ApartmentsManager.Infra.Contexts
         public ApartmentsManagerContext(DbContextOptions<ApartmentsManagerContext> options)
             : base(options)
         {
+            var optionsBuilder = new DbContextOptionsBuilder<ApartmentsManagerContext>();
+            optionsBuilder.UseSqlServer("Server=localhost;Database=ApartmentsManager;Trusted_Connection=True;");
         }
 
         public DbSet<Resident> Residents { get; set; }

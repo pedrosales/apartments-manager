@@ -11,7 +11,7 @@ namespace ApartmentsManager.Tests.HandlerTests
     {
         private readonly CreateCondominiumCommand _invalidCommand = new CreateCondominiumCommand("", "", 0, "", "", "", "", "", "");
         private readonly CreateCondominiumCommand _validCommand = new CreateCondominiumCommand("Solar da Mata", "Rua Conselheiro Lafaiete", 1925, "Sagrada Família", "Belo Horizonte", "MG", "Brasil", "31035560", "Pedro Ivo");
-        private readonly CondominiumHandler _handler = new CondominiumHandler(new FakeCondominiumRepository());
+        private readonly CondominiumHandler _handler = new CondominiumHandler(new FakeCondominiumRepository(), null);
         private GenericCommandResult _result = new GenericCommandResult();
 
         [TestMethod]

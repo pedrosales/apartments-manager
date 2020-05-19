@@ -8,9 +8,10 @@ namespace ApartmentsManager.Domain.Entities
     {
         private readonly IList<Resident> _residents;
 
-        public Apartment(int number, string block, string user)
+        public Apartment() { }
+        public Apartment(Condominium condominium, int number, string block, string user)
         {
-            //Condominium = condominium;
+            Condominium = condominium;
             // CondominiumId = condominium.Id;
             Number = number;
             Block = block;

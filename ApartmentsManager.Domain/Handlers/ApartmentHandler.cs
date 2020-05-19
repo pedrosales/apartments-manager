@@ -29,12 +29,12 @@ namespace ApartmentsManager.Domain.Handlers
                 return new GenericCommandResult(false, "Ops, erro ao cadastrar apartamento.", command.Notifications);
 
             // Recupera condomínio
-            // var condominium = _condominiumRepository.GetById(command.CondominiumId, command.User);
-            // if (condominium == null)
-            //     return new GenericCommandResult(false, "Ops, erro ao cadastrar apartamento.", "Condomínio não encontrado");
+            var condominium = _condominiumRepository.GetById(command.CondominiumId, command.User);
+            if (condominium == null)
+                return new GenericCommandResult(false, "Ops, erro ao cadastrar apartamento.", "Condomínio não encontrado");
 
             // Cria apartamento
-            var apartment = new Apartment(command.Number, command.Block, command.User);
+            var apartment = new Apartment(condominium, command.Number, command.Block, command.User);
 
             try
             {

@@ -12,6 +12,7 @@ namespace ApartmentsManager.Domain.Entities
             Cpf = cpf;
             Email = email;
             User = user;
+            Active = true;
         }
 
         public string Name { get; private set; }
@@ -19,6 +20,7 @@ namespace ApartmentsManager.Domain.Entities
         public string Phone { get; private set; }
         public string Cpf { get; private set; }
         public string Email { get; private set; }
+        public bool Active { get; set; }
         public string User { get; private set; }
 
         public void UpdateResident(string name, DateTime birthDate, string phone, string email)
@@ -34,6 +36,16 @@ namespace ApartmentsManager.Domain.Entities
 
             if (!string.IsNullOrEmpty(email) && !Email.Equals(phone))
                 Email = email;
+        }
+
+        public void Inactive()
+        {
+            Active = false;
+        }
+
+        public void Activate()
+        {
+            Active = true;
         }
 
         public override string ToString()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ApartmentsManager.Domain.Commands.Requests;
 using ApartmentsManager.Domain.Commands.Results;
@@ -47,6 +48,30 @@ namespace ApartmentsManager.Api.Controllers
             var user = "Pedro Ivo";
             var result = repository.GetAll(user);
             return mapper.Map<List<GetResidentQueryResult>>(result);
+        }
+
+        [HttpDelete]
+        [Route("inactivate-resident/{id}")]
+        public GenericCommandResult Inactivate(
+            Guid id,
+            [FromServices] ResidentHandler handler
+        )
+        {
+            var user = "Pedro Ivo";
+            var command = new InactivateResidentCommand(id, user);
+            return (GenericCommandResult)handler.Handle(command);
+        }
+
+        [HttpPut]
+        [Route("activate-resident/{id}")]
+        public GenericCommandResult Delete(
+            Guid id,
+            [FromServices] ResidentHandler handler
+        )
+        {
+            var user = "Pedro Ivo";
+            var command = new ActivateResidentCommand(id, user);
+            return (GenericCommandResult)handler.Handle(command);
         }
     }
 }

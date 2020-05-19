@@ -11,7 +11,9 @@ namespace ApartmentsManager.Domain.Handlers
 {
     public class ResidentHandler : Notifiable,
         IHandler<CreateResidentCommand>,
-        IHandler<UpdateResidentCommand>
+        IHandler<UpdateResidentCommand>,
+        IHandler<InactivateResidentCommand>,
+        IHandler<ActivateResidentCommand>
     {
         private readonly IResidentRepository _repository;
 
@@ -87,6 +89,62 @@ namespace ApartmentsManager.Domain.Handlers
                 User = resident.User
             };
             return new GenericCommandResult(true, "Morador salvo com sucesso!", residentResult);
+        }
+
+        public ICommandResult Handle(InactivateResidentCommand command)
+        {
+            // Fail Fast Validation
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Ops, erro ao inativar morador.", command.Notifications);
+
+            // Hidrata morador
+            var resident = _repository.GetById(command.Id, command.User);
+
+            if (resident == null)
+                return new GenericCommandResult(false, "Ops, erro ao inativar morador.", command.Id);
+
+            resident.Inactive();
+
+            try
+            {
+                // Atualiza morador
+                _repository.Update(resident);
+            }
+            catch (Exception ex)
+            {
+                return new GenericCommandResult(false, "Erro inesperado!", ex.Message);
+            }
+
+            return new GenericCommandResult(true, "Morador inativado com sucesso!", null);
+        }
+
+        public ICommandResult Handle(ActivateResidentCommand command)
+        {
+            // Fail Fast Validation
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Ops, erro ao ativar morador.", command.Notifications);
+
+            // Hidrata morador
+            var resident = _repository.GetById(command.Id, command.User);
+
+            if (resident == null)
+                return new GenericCommandResult(false, "Ops, erro ao ativar morador.", command.Id);
+
+            resident.Activate();
+
+            try
+            {
+                // Atualiza morador
+                _repository.Update(resident);
+            }
+            catch (Exception ex)
+            {
+                return new GenericCommandResult(false, "Erro inesperado!", ex.Message);
+            }
+
+            return new GenericCommandResult(true, "Morador ativado com sucesso!", null);
         }
     }
 }

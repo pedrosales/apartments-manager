@@ -23,8 +23,9 @@ namespace ApartmentsManager.Infra.Contexts
             modelBuilder.Entity<Resident>().Property(x => x.Phone).HasMaxLength(11).HasColumnType("varchar(11)");
             modelBuilder.Entity<Resident>().Property(x => x.Cpf).HasMaxLength(11).HasColumnType("varchar(11)");
             modelBuilder.Entity<Resident>().HasIndex(x => x.User);
-            modelBuilder.Entity<Resident>().HasIndex(x => x.Cpf);
-            modelBuilder.Entity<Resident>().HasIndex(x => x.Email);
+            // TODO: Criar indexes
+            // modelBuilder.Entity<Resident>().HasIndex(x => x.Cpf);
+            // modelBuilder.Entity<Resident>().HasIndex(x => x.Email);
         }
     }
 }

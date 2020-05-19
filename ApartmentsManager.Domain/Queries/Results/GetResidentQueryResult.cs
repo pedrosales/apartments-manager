@@ -11,5 +11,7 @@ namespace ApartmentsManager.Domain.Queries.Results
         public string Cpf { get; set; }
         public string Email { get; set; }
         public bool Active { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Updated { get; set; }
     }
 }

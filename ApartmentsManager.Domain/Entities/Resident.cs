@@ -13,6 +13,7 @@ namespace ApartmentsManager.Domain.Entities
             Email = email;
             User = user;
             Active = true;
+            Created = DateTime.Now;
         }
 
         public string Name { get; private set; }
@@ -22,6 +23,8 @@ namespace ApartmentsManager.Domain.Entities
         public string Email { get; private set; }
         public bool Active { get; set; }
         public string User { get; private set; }
+        public DateTime Created { get; private set; }
+        public DateTime Updated { get; private set; }
 
         public void UpdateResident(string name, DateTime birthDate, string phone, string email)
         {
@@ -36,6 +39,8 @@ namespace ApartmentsManager.Domain.Entities
 
             if (!string.IsNullOrEmpty(email) && !Email.Equals(phone))
                 Email = email;
+
+            Updated = DateTime.Now;
         }
 
         public void Inactivate()

@@ -2,7 +2,7 @@ using System;
 using ApartmentsManager.Domain.Commands.Requests.Residents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ApartmentsManager.Tests.CommandTests
+namespace ApartmentsManager.Tests.CommandTests.Residents
 {
     [TestClass]
     public class InvalidateResidentCommandTests

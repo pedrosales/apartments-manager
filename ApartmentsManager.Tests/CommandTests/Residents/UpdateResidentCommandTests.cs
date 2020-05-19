@@ -2,14 +2,15 @@ using System;
 using ApartmentsManager.Domain.Commands.Requests.Residents;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ApartmentsManager.Tests.CommandTests
+namespace ApartmentsManager.Tests.CommandTests.Residents
 {
     [TestClass]
-    public class CreateResidentCommandTests
+    public class UpdateResidentCommandTests
     {
-        private readonly CreateResidentCommand _invalidCommand = new CreateResidentCommand("", DateTime.Now, "", "", "", "");
-        private readonly CreateResidentCommand _validCommand = new CreateResidentCommand("Morador 1", DateTime.Parse("08-08-1988"), "31994969424", "09370469656", "pedroivossantos@gmail.com", "Pedro Ivo");
-        public CreateResidentCommandTests()
+        private readonly UpdateResidentCommand _invalidCommand = new UpdateResidentCommand(Guid.Empty, "", DateTime.MinValue, "", "", "", "");
+        private readonly UpdateResidentCommand _validCommand = new UpdateResidentCommand(Guid.NewGuid(), "Morador 1 update", DateTime.Now, "31994969424", "09370469656", "morador1@gmail.com", "Pedro Ivo");
+
+        public UpdateResidentCommandTests()
         {
             _invalidCommand.Validate();
             _validCommand.Validate();
@@ -28,6 +29,5 @@ namespace ApartmentsManager.Tests.CommandTests
             Assert.AreEqual(true, _validCommand.Valid);
             Assert.AreEqual(false, _validCommand.Invalid);
         }
-
     }
 }

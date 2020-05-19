@@ -67,7 +67,7 @@ namespace ApartmentsManager.Domain.Handlers
             if (resident == null)
                 return new GenericCommandResult(false, "Ops, erro ao atualizar morador.", command.Id);
 
-            resident.UpdateResident(command.Name, command.BirthDate, command.Phone, command.Email);
+            resident.Update(command.Name, command.BirthDate, command.Phone, command.Email);
 
             try
             {

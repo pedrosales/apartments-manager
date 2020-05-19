@@ -26,7 +26,7 @@ namespace ApartmentsManager.Domain.Entities
         public DateTime Created { get; private set; }
         public DateTime Updated { get; private set; }
 
-        public void UpdateResident(string name, DateTime birthDate, string phone, string email)
+        public void Update(string name, DateTime birthDate, string phone, string email)
         {
             if (!string.IsNullOrEmpty(name) && !Name.Equals(name))
                 Name = name;

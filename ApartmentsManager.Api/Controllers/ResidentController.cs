@@ -50,6 +50,30 @@ namespace ApartmentsManager.Api.Controllers
             return mapper.Map<List<GetResidentQueryResult>>(result);
         }
 
+        [HttpGet]
+        [Route("inactive")]
+        public IEnumerable<GetResidentQueryResult> GetAllInactive(
+            [FromServices] IResidentRepository repository,
+            [FromServices] IMapper mapper
+        )
+        {
+            var user = "Pedro Ivo";
+            var result = repository.GetAllInactive(user);
+            return mapper.Map<List<GetResidentQueryResult>>(result);
+        }
+
+        [HttpGet]
+        [Route("active")]
+        public IEnumerable<GetResidentQueryResult> GetAllActive(
+           [FromServices] IResidentRepository repository,
+           [FromServices] IMapper mapper
+       )
+        {
+            var user = "Pedro Ivo";
+            var result = repository.GetAllActive(user);
+            return mapper.Map<List<GetResidentQueryResult>>(result);
+        }
+
         [HttpDelete]
         [Route("inactivate-resident/{id}")]
         public GenericCommandResult Inactivate(

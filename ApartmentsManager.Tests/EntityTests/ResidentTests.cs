@@ -25,7 +25,7 @@ namespace ApartmentsManager.Tests.EntityTests
         [TestMethod]
         public void Given_Valid_Resident_When_Invalidate_Active_Should_Be_False()
         {
-            _validResident.Inactive();
+            _validResident.Inactivate();
             Assert.AreEqual(false, _validResident.Active);
         }
     }

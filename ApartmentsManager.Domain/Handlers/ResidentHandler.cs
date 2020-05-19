@@ -104,7 +104,7 @@ namespace ApartmentsManager.Domain.Handlers
             if (resident == null)
                 return new GenericCommandResult(false, "Ops, erro ao inativar morador.", command.Id);
 
-            resident.Inactive();
+            resident.Inactivate();
 
             try
             {

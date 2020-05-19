@@ -38,7 +38,7 @@ namespace ApartmentsManager.Domain.Entities
                 Email = email;
         }
 
-        public void Inactive()
+        public void Inactivate()
         {
             Active = false;
         }

@@ -19,6 +19,15 @@ namespace ApartmentsManager.Tests.Repositories
             _items.Add(new Resident("Morador 3", DateTime.Parse("03-15-1953"), "31994969424", "11301910600", "morador3@gmail.com", "Pedro Ivo"));
             _items.Add(new Resident("Morador 4", DateTime.Parse("09-02-1987"), "31994969424", "21485203656", "morador4@gmail.com", "Usuario A"));
             _items.Add(new Resident("Morador 5", DateTime.Parse("05-02-1990"), "31994969424", "70420145896", "morador5@gmail.com", "Pedro Ivo"));
+            _items.Add(new Resident("Morador 6 Inactive", DateTime.Parse("09-02-1987"), "31994969424", "21485203656", "morador6@gmail.com", "Usuario A"));
+            _items.Add(new Resident("Morador 7 Inactive", DateTime.Parse("09-02-1987"), "31994969424", "21485203656", "morador7@gmail.com", "Usuario A"));
+            _items.Add(new Resident("Morador 8 Inactive", DateTime.Parse("05-02-1990"), "31994969424", "70420145896", "morador8@gmail.com", "Pedro Ivo"));
+            _items.Add(new Resident("Morador 9 Inactive", DateTime.Parse("05-02-1990"), "31994969424", "70420145896", "morador9@gmail.com", "Pedro Ivo"));
+
+            foreach (var resident in _items.Where(x => x.Name.Contains("Inactive")).ToList())
+            {
+                resident.Inactivate();
+            }
         }
         public void Create(Resident resident)
         {
@@ -28,6 +37,16 @@ namespace ApartmentsManager.Tests.Repositories
         public IEnumerable<Resident> GetAll(string user)
         {
             return _items.AsQueryable().Where(ResidentQueries.GetAll(user));
+        }
+
+        public IEnumerable<Resident> GetAllActive(string user)
+        {
+            return _items.AsQueryable().Where(ResidentQueries.GetAllActive(user));
+        }
+
+        public IEnumerable<Resident> GetAllInactive(string user)
+        {
+            return _items.AsQueryable().Where(ResidentQueries.GetAllInactive(user));
         }
 
         public Resident GetById(Guid id, string user)

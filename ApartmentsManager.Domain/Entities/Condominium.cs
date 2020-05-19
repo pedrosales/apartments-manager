@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 namespace ApartmentsManager.Domain.Entities
 {
     public class Condominium : Entity
     {
+        private readonly IList<Apartment> _apartments;
         public Condominium(string name, string street, int number, string neighborhood, string city, string state, string country, string zipCode, string user)
         {
             Name = name;
@@ -17,6 +19,7 @@ namespace ApartmentsManager.Domain.Entities
             User = user;
             Active = true;
             Created = DateTime.Now;
+            _apartments = new List<Apartment>();
         }
 
         public string Name { get; private set; }
@@ -31,6 +34,7 @@ namespace ApartmentsManager.Domain.Entities
         public bool Active { get; private set; }
         public DateTime Created { get; private set; }
         public DateTime Updated { get; private set; }
+        public ICollection<Apartment> Apartments { get; private set; }
 
         public void Update(string name, string street, int number, string neighborhood, string city, string state, string country, string zipCode)
         {
@@ -69,6 +73,14 @@ namespace ApartmentsManager.Domain.Entities
         public void Activate()
         {
             Active = true;
+        }
+
+        public void AddApartment(Apartment apartment)
+        {
+            if (apartment != null)
+                _apartments.Add(apartment);
+
+            Updated = DateTime.Now;
         }
 
         public override string ToString()

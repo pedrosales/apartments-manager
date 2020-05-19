@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,16 +8,37 @@ namespace ApartmentsManager.Domain.Entities
     {
         private readonly IList<Resident> _residents;
 
-        public Apartment(int number, int block)
+        public Apartment(int number, string block, string user)
         {
+            //Condominium = condominium;
+            // CondominiumId = condominium.Id;
             Number = number;
             Block = block;
+            User = user;
+            Active = true;
             _residents = new List<Resident>();
+
+            Created = DateTime.Now;
         }
 
+        public Condominium Condominium { get; private set; }
         public int Number { get; private set; }
-        public int Block { get; private set; }
+        public string Block { get; private set; }
+        public string User { get; private set; }
+        public bool Active { get; private set; }
         public IReadOnlyCollection<Resident> Residents => _residents.ToArray();
+        public DateTime Created { get; private set; }
+        public DateTime Updated { get; private set; }
+
+        public void Activate()
+        {
+            Active = true;
+        }
+
+        public void Inactivate()
+        {
+            Active = false;
+        }
 
         public void AddResident(Resident resident)
         {
@@ -32,12 +54,14 @@ namespace ApartmentsManager.Domain.Entities
                 }
 
                 _residents.Add(resident);
+                Updated = DateTime.Now;
             }
         }
 
         public void RemoveResident(Resident resident)
         {
             _residents.Remove(resident);
+            Updated = DateTime.Now;
         }
     }
 }

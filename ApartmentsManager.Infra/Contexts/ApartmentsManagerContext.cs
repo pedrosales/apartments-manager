@@ -12,6 +12,7 @@ namespace ApartmentsManager.Infra.Contexts
 
         public DbSet<Resident> Residents { get; set; }
         public DbSet<Condominium> Condominiums { get; set; }
+        public DbSet<Apartment> Apartments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,6 +47,17 @@ namespace ApartmentsManager.Infra.Contexts
             modelBuilder.Entity<Condominium>().Property(x => x.Created);
             modelBuilder.Entity<Condominium>().Property(x => x.Updated);
             modelBuilder.Entity<Condominium>().HasIndex(x => x.User);
+            modelBuilder.Entity<Condominium>().HasMany(x => x.Apartments);
+
+            modelBuilder.Entity<Apartment>().ToTable("Apartment");
+            modelBuilder.Entity<Apartment>().Property(x => x.Id);
+            modelBuilder.Entity<Apartment>().Ignore(x => x.Notifications);
+            modelBuilder.Entity<Apartment>().Property(x => x.User).HasMaxLength(120).HasColumnType("varchar(120)");
+            modelBuilder.Entity<Apartment>().Property(x => x.Number);
+            modelBuilder.Entity<Apartment>().Property(x => x.Block).HasMaxLength(100).HasColumnType("varchar(100)");
+            //modelBuilder.Entity<Apartment>().OwnsOne(type, Condominium);
+            modelBuilder.Entity<Apartment>().HasOne(x => x.Condominium);
+            //modelBuilder.Entity<Apartment>().HasOne(x => x.Condominium).WithMany(x => x.Apartments);
 
         }
     }

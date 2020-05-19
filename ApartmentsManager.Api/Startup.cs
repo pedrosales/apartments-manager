@@ -25,10 +25,12 @@ namespace ApartmentsManager.Api
             // Injeta repositorios
             services.AddTransient<IResidentRepository, ResidentRepository>();
             services.AddTransient<ICondominiumRepository, CondominiumRepository>();
+            services.AddTransient<IApartmentRepository, ApartmentRepository>();
 
             //Injeta handlers
             services.AddTransient<ResidentHandler, ResidentHandler>();
             services.AddTransient<CondominiumHandler, CondominiumHandler>();
+            services.AddTransient<ApartmentHandler, ApartmentHandler>();
 
             // Injet o AutoMapper
             services.AddAutoMapper(typeof(Startup).Assembly);

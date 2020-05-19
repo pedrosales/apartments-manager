@@ -38,6 +38,18 @@ namespace ApartmentsManager.Api.Controllers
             return result;
         }
 
+        [HttpPut]
+        [Route("add-apartment")]
+        public GenericCommandResult AddApartment(
+            [FromBody] AddApartmentCommand command,
+            [FromServices] CondominiumHandler handler
+        )
+        {
+            command.User = "Pedro Ivo";
+            var result = (GenericCommandResult)handler.Handle(command);
+            return result;
+        }
+
         [HttpGet]
         [Route("")]
         public IEnumerable<GetCondominiumQueryResult> GetAll(

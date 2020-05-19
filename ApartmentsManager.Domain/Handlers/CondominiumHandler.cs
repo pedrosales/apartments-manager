@@ -13,13 +13,16 @@ namespace ApartmentsManager.Domain.Handlers
         IHandler<CreateCondominiumCommand>,
         IHandler<UpdateCondominiumCommand>,
         IHandler<InactivateCondominiumCommand>,
-        IHandler<ActivateCondominiumCommand>
+        IHandler<ActivateCondominiumCommand>,
+        IHandler<AddApartmentCommand>
     {
         private readonly ICondominiumRepository _repository;
+        private readonly IApartmentRepository _apartmentRepository;
 
-        public CondominiumHandler(ICondominiumRepository repository)
+        public CondominiumHandler(ICondominiumRepository repository, IApartmentRepository apartmentRepository)
         {
             _repository = repository;
+            _apartmentRepository = apartmentRepository;
         }
         public ICommandResult Handle(CreateCondominiumCommand command)
         {
@@ -148,6 +151,49 @@ namespace ApartmentsManager.Domain.Handlers
             }
 
             return new GenericCommandResult(true, "Condomínio ativado com sucesso!", null);
+        }
+
+        public ICommandResult Handle(AddApartmentCommand command)
+        {
+            // Fail Fast Validation
+            command.Validate();
+            if (command.Invalid)
+                return new GenericCommandResult(false, "Ops, erro ao adicionar apartamento ao condomínio.", command.Notifications);
+
+            // Recupera apartamento
+            var apartment = _apartmentRepository.GetById(command.ApartmentId, command.User);
+            if (apartment == null)
+                return new GenericCommandResult(false, "Ops, erro ao adicionar apartamento ao condomínio.", command.ApartmentId);
+
+            // Recupera condomínio
+            var condominium = _repository.GetById(command.Id, command.User);
+            if (condominium == null)
+                return new GenericCommandResult(false, "Ops, erro ao adicionar apartamento ao condomínio.", command.Id);
+
+            condominium.AddApartment(apartment);
+
+            try
+            {
+                // Salva condomínio
+                _repository.Update(condominium);
+            }
+            catch (Exception ex)
+            {
+                return new GenericCommandResult(false, "Erro inesperado!", ex.Message);
+            }
+
+            var condominiumResult = new CondominiumCommandResult
+            {
+                City = condominium.City,
+                Country = condominium.Country,
+                Name = condominium.Name,
+                Neighborhood = condominium.Neighborhood,
+                Number = condominium.Number,
+                State = condominium.State,
+                Street = condominium.Street
+            };
+
+            return new GenericCommandResult(true, "Condomínio salvo com sucesso!", condominiumResult);
         }
     }
 }

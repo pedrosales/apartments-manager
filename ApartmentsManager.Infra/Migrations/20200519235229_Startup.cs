@@ -59,6 +59,7 @@ namespace ApartmentsManager.Infra.Migrations
                 columns: table => new
                 {
                     Id = table.Column<byte[]>(nullable: false),
+                    ApartmentId = table.Column<byte[]>(nullable: true),
                     Name = table.Column<string>(type: "varchar(160)", maxLength: 160, nullable: true),
                     BirthDate = table.Column<DateTime>(nullable: false),
                     Phone = table.Column<string>(type: "varchar(11)", maxLength: 11, nullable: true),
@@ -67,8 +68,7 @@ namespace ApartmentsManager.Infra.Migrations
                     Active = table.Column<bool>(nullable: false),
                     User = table.Column<string>(type: "varchar(120)", maxLength: 120, nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
-                    Updated = table.Column<DateTime>(nullable: false),
-                    ApartmentId = table.Column<byte[]>(nullable: true)
+                    Updated = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

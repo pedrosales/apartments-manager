@@ -12,7 +12,7 @@ namespace ApartmentsManager.Tests.HandlerTests
     {
         private readonly CreateResidentCommand _invalidCommand = new CreateResidentCommand("", DateTime.Now, "", "", "", "");
         private readonly CreateResidentCommand _validCommand = new CreateResidentCommand("Morador 1", DateTime.Parse("08-08-1988"), "31994969424", "09370469656", "pedroivossantos@gmail.com", "Pedro Ivo");
-        private readonly ResidentHandler _handler = new ResidentHandler(new FakeResidentRepository());
+        private readonly ResidentHandler _handler = new ResidentHandler(new FakeResidentRepository(), new FakeApartmentRepository());
         private GenericCommandResult _result = new GenericCommandResult();
 
         [TestMethod]

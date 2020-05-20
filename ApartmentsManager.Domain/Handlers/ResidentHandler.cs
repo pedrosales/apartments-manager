@@ -16,10 +16,12 @@ namespace ApartmentsManager.Domain.Handlers
         IHandler<ActivateResidentCommand>
     {
         private readonly IResidentRepository _repository;
+        private readonly IApartmentRepository _apartmentRepository;
 
-        public ResidentHandler(IResidentRepository repository)
+        public ResidentHandler(IResidentRepository repository, IApartmentRepository apartmentRepository)
         {
             _repository = repository;
+            _apartmentRepository = apartmentRepository;
         }
 
         public ICommandResult Handle(CreateResidentCommand command)
@@ -29,8 +31,13 @@ namespace ApartmentsManager.Domain.Handlers
             if (command.Invalid)
                 return new GenericCommandResult(false, "Ops, erro ao cadastrar morador.", command.Notifications);
 
+            // Recupera apartamento se informado
+            Apartment apartment = null;
+            if (command.ApartmentId != null && command.ApartmentId != Guid.Empty)
+                apartment = _apartmentRepository.GetById(command.ApartmentId, command.User);
+
             // Cria morador
-            var resident = new Resident(command.Name, command.BirthDate, command.Phone, command.Cpf, command.Email, command.User);
+            var resident = new Resident(apartment, command.Name, command.BirthDate, command.Phone, command.Cpf, command.Email, command.User);
 
             try
             {

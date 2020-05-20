@@ -11,7 +11,7 @@ namespace ApartmentsManager.Api.Mappings
         public ApartmentEntityProfile()
         {
             CreateMap<Apartment, GetApartmentQueryResult>()
-                .ForMember(x => x.Condominium, opts => opts.MapFrom(src => src.Condominium.Name));
+            .ForMember(x => x.Residents, opt => opt.MapFrom(re => re.Residents));
         }
     }
 }

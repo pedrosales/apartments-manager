@@ -6,6 +6,9 @@ namespace ApartmentsManager.Domain.Entities
     public class Condominium : Entity
     {
         private readonly IList<Apartment> _apartments;
+
+        public Condominium() { }
+
         public Condominium(string name, string street, int number, string neighborhood, string city, string state, string country, string zipCode, string user)
         {
             Name = name;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace ApartmentsManager.Domain.Entities
 {
@@ -9,6 +10,7 @@ namespace ApartmentsManager.Domain.Entities
         private readonly IList<Resident> _residents;
 
         public Apartment() { }
+
         public Apartment(Condominium condominium, int number, string block, string user)
         {
             Condominium = condominium;
@@ -22,12 +24,13 @@ namespace ApartmentsManager.Domain.Entities
             Created = DateTime.Now;
         }
 
+        [JsonIgnore]
         public Condominium Condominium { get; private set; }
         public int Number { get; private set; }
         public string Block { get; private set; }
         public string User { get; private set; }
         public bool Active { get; private set; }
-        public IReadOnlyCollection<Resident> Residents => _residents.ToArray();
+        public ICollection<Resident> Residents { get; private set; }
         public DateTime Created { get; private set; }
         public DateTime Updated { get; private set; }
 

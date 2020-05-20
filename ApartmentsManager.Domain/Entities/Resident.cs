@@ -1,11 +1,14 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace ApartmentsManager.Domain.Entities
 {
     public class Resident : Entity
     {
-        public Resident(string name, DateTime birthDate, string phone, string cpf, string email, string user)
+        public Resident() { }
+        public Resident(Apartment apartment, string name, DateTime birthDate, string phone, string cpf, string email, string user)
         {
+            Apartment = apartment;
             Name = name;
             BirthDate = birthDate;
             Phone = phone;
@@ -16,6 +19,8 @@ namespace ApartmentsManager.Domain.Entities
             Created = DateTime.Now;
         }
 
+        [JsonIgnore]
+        public Apartment Apartment { get; private set; }
         public string Name { get; private set; }
         public DateTime BirthDate { get; private set; }
         public string Phone { get; private set; }

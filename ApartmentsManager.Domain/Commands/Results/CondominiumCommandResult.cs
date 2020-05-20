@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace ApartmentsManager.Domain.Commands.Results
 {
     public class CondominiumCommandResult
@@ -10,5 +12,6 @@ namespace ApartmentsManager.Domain.Commands.Results
         public string State { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; }
+        public ICollection<ApartmentCommandResult> Apartments { get; set; }
     }
 }

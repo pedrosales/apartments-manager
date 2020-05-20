@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ApartmentsManager.Domain.Commands.Requests.Condominiums;
 using ApartmentsManager.Domain.Commands.Results;
 using ApartmentsManager.Domain.Handlers;
@@ -58,8 +59,9 @@ namespace ApartmentsManager.Api.Controllers
         )
         {
             var user = "Pedro Ivo";
-            var result = repository.GetAll(user);
-            return mapper.Map<List<GetCondominiumQueryResult>>(result);
+            var result = repository.GetAll(user).ToList();
+            var map = mapper.Map<List<GetCondominiumQueryResult>>(result);
+            return map;
         }
 
         [HttpGet]

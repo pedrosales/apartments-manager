@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using ApartmentsManager.Domain.Entities;
 
 namespace ApartmentsManager.Domain.Queries.Results
 {
@@ -16,5 +18,6 @@ namespace ApartmentsManager.Domain.Queries.Results
         public bool Active { get; set; }
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
+        public IEnumerable<Apartment> Apartmens { get; set; }
     }
 }

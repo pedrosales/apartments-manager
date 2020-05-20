@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentsManager.Infra.Migrations
 {
     [DbContext(typeof(ApartmentsManagerContext))]
-    [Migration("20200519203257_Startup")]
+    [Migration("20200519235229_Startup")]
     partial class Startup
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,7 +170,7 @@ namespace ApartmentsManager.Infra.Migrations
 
             modelBuilder.Entity("ApartmentsManager.Domain.Entities.Resident", b =>
                 {
-                    b.HasOne("ApartmentsManager.Domain.Entities.Apartment", null)
+                    b.HasOne("ApartmentsManager.Domain.Entities.Apartment", "Apartment")
                         .WithMany("Residents")
                         .HasForeignKey("ApartmentId");
                 });

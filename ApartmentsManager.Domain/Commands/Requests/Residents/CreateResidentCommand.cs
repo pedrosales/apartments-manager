@@ -19,6 +19,7 @@ namespace ApartmentsManager.Domain.Commands.Requests.Residents
             User = user;
         }
 
+        public Guid ApartmentId { get; set; }
         public string Name { get; set; }
         public DateTime BirthDate { get; set; }
         public string Phone { get; set; }

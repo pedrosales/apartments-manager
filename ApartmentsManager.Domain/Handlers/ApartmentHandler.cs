@@ -27,34 +27,34 @@ namespace ApartmentsManager.Domain.Handlers
             command.Validate();
             if (command.Invalid)
                 return new GenericCommandResult(false, "Ops, erro ao cadastrar apartamento.", command.Notifications);
-
-            // Recupera condomínio
-            var condominium = _condominiumRepository.GetById(command.CondominiumId, command.User);
-            if (condominium == null)
-                return new GenericCommandResult(false, "Ops, erro ao cadastrar apartamento.", "Condomínio não encontrado");
-
-            // Cria apartamento
-            var apartment = new Apartment(condominium, command.Number, command.Block, command.User);
-
             try
             {
+                // Recupera condomínio
+                var condominium = _condominiumRepository.GetById(command.CondominiumId, command.User);
+                if (condominium == null)
+                    return new GenericCommandResult(false, "Ops, erro ao cadastrar apartamento.", "Condomínio não encontrado");
+
+                // Cria apartamento
+                var apartment = new Apartment(condominium, command.Number, command.Block, command.User);
+
+
                 // Salva morador
                 _repository.Create(apartment);
+
+                var apartmentResult = new ApartmentCommandResult
+                {
+                    Block = apartment.Block,
+                    //Condominium = apartment.Condominium.Name,
+                    Number = apartment.Number,
+                    User = apartment.User
+                };
+
+                return new GenericCommandResult(true, "Apartamento salvo com sucesso!", apartmentResult);
             }
             catch (Exception ex)
             {
                 return new GenericCommandResult(false, "Erro inesperado!", ex.Message);
             }
-
-            var apartmentResult = new ApartmentCommandResult
-            {
-                Block = apartment.Block,
-                //Condominium = apartment.Condominium.Name,
-                Number = apartment.Number,
-                User = apartment.User
-            };
-
-            return new GenericCommandResult(true, "Apartamento salvo com sucesso!", apartmentResult);
         }
     }
 }

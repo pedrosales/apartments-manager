@@ -26,7 +26,7 @@ namespace ApartmentsManager.Infra.Repositories
 
         public IEnumerable<Condominium> GetAll(string user)
         {
-            return _context.Condominiums.AsNoTracking().Where(CondominiumQueries.GetAll(user)).OrderBy(x => x.Name);
+            return _context.Condominiums.Include(x => x.Apartments).AsNoTracking().Where(CondominiumQueries.GetAll(user)).OrderBy(x => x.Name);
         }
 
         public IEnumerable<Condominium> GetAllActive(string user)

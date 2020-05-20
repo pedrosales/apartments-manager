@@ -168,7 +168,7 @@ namespace ApartmentsManager.Infra.Migrations
 
             modelBuilder.Entity("ApartmentsManager.Domain.Entities.Resident", b =>
                 {
-                    b.HasOne("ApartmentsManager.Domain.Entities.Apartment", null)
+                    b.HasOne("ApartmentsManager.Domain.Entities.Apartment", "Apartment")
                         .WithMany("Residents")
                         .HasForeignKey("ApartmentId");
                 });

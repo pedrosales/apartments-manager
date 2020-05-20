@@ -30,6 +30,7 @@ namespace ApartmentsManager.Infra.Contexts
             modelBuilder.Entity<Resident>().Property(x => x.Created);
             modelBuilder.Entity<Resident>().Property(x => x.Updated);
             modelBuilder.Entity<Resident>().HasIndex(x => x.User);
+            modelBuilder.Entity<Resident>().HasOne(x => x.Apartment);
             // TODO: Criar indexes
             // modelBuilder.Entity<Resident>().HasIndex(x => x.Cpf);
             // modelBuilder.Entity<Resident>().HasIndex(x => x.Email);
@@ -59,6 +60,7 @@ namespace ApartmentsManager.Infra.Contexts
             modelBuilder.Entity<Apartment>().Property(x => x.Block).HasMaxLength(100).HasColumnType("varchar(100)");
             //modelBuilder.Entity<Apartment>().OwnsOne(type, Condominium);
             modelBuilder.Entity<Apartment>().HasOne(x => x.Condominium);
+            modelBuilder.Entity<Apartment>().HasMany(x => x.Residents);
             //modelBuilder.Entity<Apartment>().HasOne(x => x.Condominium).WithMany(x => x.Apartments);
 
         }

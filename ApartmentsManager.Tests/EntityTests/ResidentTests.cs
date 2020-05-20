@@ -7,7 +7,7 @@ namespace ApartmentsManager.Tests.EntityTests
     [TestClass]
     public class ResidentTests
     {
-        private readonly Resident _validResident = new Resident("Morador 1", DateTime.Now, "31994969424", "09370469656", "morador1@gmail.com", "Pedro Ivo");
+        private readonly Resident _validResident = new Resident(null, "Morador 1", DateTime.Now, "31994969424", "09370469656", "morador1@gmail.com", "Pedro Ivo");
 
         [TestMethod]
         public void Given_Valid_Resident_Active_Should_Be_True()

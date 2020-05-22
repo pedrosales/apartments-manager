@@ -7,12 +7,14 @@ using ApartmentsManager.Domain.Handlers;
 using ApartmentsManager.Domain.Queries.Results;
 using ApartmentsManager.Domain.Repositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentsManager.Api.Controllers
 {
     [ApiController]
     [Route("v1/condominiums")]
+    [Authorize]
     public class CondominiumController : ControllerBase
     {
         [HttpPost]
@@ -22,7 +24,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] CondominiumHandler handler
         )
         {
-            command.User = "Pedro Ivo";
+            command.User = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = (GenericCommandResult)handler.Handle(command);
             return result;
         }
@@ -58,7 +60,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] IMapper mapper
         )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = repository.GetAll(user).ToList();
             var map = mapper.Map<List<GetCondominiumQueryResult>>(result);
             return map;

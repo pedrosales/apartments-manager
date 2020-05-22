@@ -3,12 +3,14 @@ using ApartmentsManager.Domain.Repositories;
 using ApartmentsManager.Infra.Contexts;
 using ApartmentsManager.Infra.Repositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApartmentsManager.Api
 {
@@ -42,6 +44,21 @@ namespace ApartmentsManager.Api
             services.AddTransient<CondominiumHandler, CondominiumHandler>();
             services.AddTransient<ApartmentHandler, ApartmentHandler>();
 
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "https://securetoken.google.com/kipler-apartments-manager";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "https://securetoken.google.com/kipler-apartments-manager",
+                        ValidateAudience = true,
+                        ValidAudience = "kipler-apartments-manager",
+                        ValidateLifetime = true
+                    };
+                });
+
             // Injet o AutoMapper
             services.AddAutoMapper(typeof(Startup).Assembly);
         }
@@ -54,11 +71,16 @@ namespace ApartmentsManager.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
+
             app.UseRouting();
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

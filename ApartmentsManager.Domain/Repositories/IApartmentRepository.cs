@@ -10,5 +10,6 @@ namespace ApartmentsManager.Domain.Repositories
         void Update(Apartment apartment);
         IEnumerable<Apartment> GetAll(string user);
         Apartment GetById(Guid id, string user);
+        IEnumerable<Apartment> GetAllWithoutCondominium(string user);
     }
 }

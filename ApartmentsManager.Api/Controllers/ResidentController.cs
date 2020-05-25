@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ApartmentsManager.Domain.Commands.Requests.Residents;
 using ApartmentsManager.Domain.Commands.Results;
 using ApartmentsManager.Domain.Handlers;
@@ -21,7 +22,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] ResidentHandler handler
         )
         {
-            command.User = "Pedro Ivo";
+            command.User = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = (GenericCommandResult)handler.Handle(command);
             return result;
         }
@@ -33,7 +34,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] ResidentHandler handler
         )
         {
-            command.User = "Pedro Ivo";
+            command.User = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = (GenericCommandResult)handler.Handle(command);
             return result;
         }
@@ -45,7 +46,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] IMapper mapper
         )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = repository.GetAll(user);
             return mapper.Map<List<GetResidentQueryResult>>(result);
         }
@@ -57,7 +58,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] IMapper mapper
         )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = repository.GetAllInactive(user);
             return mapper.Map<List<GetResidentQueryResult>>(result);
         }
@@ -69,7 +70,7 @@ namespace ApartmentsManager.Api.Controllers
            [FromServices] IMapper mapper
        )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = repository.GetAllActive(user);
             return mapper.Map<List<GetResidentQueryResult>>(result);
         }
@@ -81,7 +82,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] ResidentHandler handler
         )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var command = new InactivateResidentCommand(id, user);
             return (GenericCommandResult)handler.Handle(command);
         }
@@ -93,9 +94,35 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] ResidentHandler handler
         )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var command = new ActivateResidentCommand(id, user);
             return (GenericCommandResult)handler.Handle(command);
+        }
+
+        [HttpGet]
+        [Route("apartment/{id}")]
+        public IEnumerable<GetResidentQueryResult> GetAllByApartment(
+            Guid id,
+            [FromServices] IResidentRepository repository,
+            [FromServices] IMapper mapper
+        )
+        {
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+            var result = repository.GetAllByApartment(user, id);
+            return mapper.Map<List<GetResidentQueryResult>>(result);
+        }
+
+        [HttpGet]
+        [Route("without-apartment")]
+        public IEnumerable<GetResidentQueryResult> GetAllWithoutApartment(
+
+            [FromServices] IResidentRepository repository,
+            [FromServices] IMapper mapper
+        )
+        {
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+            var result = repository.GetAllWithoutApartment(user);
+            return mapper.Map<List<GetResidentQueryResult>>(result);
         }
     }
 }

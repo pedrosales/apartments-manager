@@ -36,7 +36,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] CondominiumHandler handler
         )
         {
-            command.User = "Pedro Ivo";
+            command.User = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = (GenericCommandResult)handler.Handle(command);
             return result;
         }
@@ -48,7 +48,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] CondominiumHandler handler
         )
         {
-            command.User = "Pedro Ivo";
+            command.User = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = (GenericCommandResult)handler.Handle(command);
             return result;
         }
@@ -73,7 +73,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] IMapper mapper
         )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = repository.GetAllInactive(user);
             return mapper.Map<List<GetCondominiumQueryResult>>(result);
         }
@@ -85,7 +85,7 @@ namespace ApartmentsManager.Api.Controllers
            [FromServices] IMapper mapper
        )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = repository.GetAllActive(user);
             return mapper.Map<List<GetCondominiumQueryResult>>(result);
         }
@@ -97,7 +97,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] CondominiumHandler handler
         )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var command = new InactivateCondominiumCommand(id, user);
             return (GenericCommandResult)handler.Handle(command);
         }
@@ -109,7 +109,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] CondominiumHandler handler
         )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var command = new ActivateCondominiumCommand(id, user);
             return (GenericCommandResult)handler.Handle(command);
         }

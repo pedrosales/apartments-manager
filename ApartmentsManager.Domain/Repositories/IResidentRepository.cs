@@ -11,6 +11,8 @@ namespace ApartmentsManager.Domain.Repositories
         IEnumerable<Resident> GetAll(string user);
         IEnumerable<Resident> GetAllInactive(string user);
         IEnumerable<Resident> GetAllActive(string user);
+        IEnumerable<Resident> GetAllByApartment(string user, Guid id);
+        IEnumerable<Resident> GetAllWithoutApartment(string user);
         Resident GetById(Guid id, string user);
     }
 }

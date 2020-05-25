@@ -29,6 +29,11 @@ namespace ApartmentsManager.Infra.Repositories
             return _context.Apartments.Include(con => con.Condominium).Include(con => con.Residents).AsNoTracking().Where(ApartmentQueries.GetAll(user));
         }
 
+        public IEnumerable<Apartment> GetAllWithoutCondominium(string user)
+        {
+            return _context.Apartments.AsNoTracking().Where(ApartmentQueries.GetAllWithoutCondominium(user));
+        }
+
         public Apartment GetById(Guid id, string user)
         {
             return _context.Apartments.FirstOrDefault(x => x.Id == id && x.User == user);

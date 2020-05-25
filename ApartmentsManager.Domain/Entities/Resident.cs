@@ -58,6 +58,12 @@ namespace ApartmentsManager.Domain.Entities
             Active = true;
         }
 
+        public void AddApartment(Apartment apartment)
+        {
+            Apartment = apartment;
+            Updated = DateTime.Now;
+        }
+
         public override string ToString()
         {
             return Name;

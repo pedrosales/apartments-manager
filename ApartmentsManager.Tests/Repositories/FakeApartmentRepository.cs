@@ -18,6 +18,7 @@ namespace ApartmentsManager.Tests.Repositories
             _items.Add(new Apartment(condominium, 101, "Bloco 1", "Pedro Ivo"));
             _items.Add(new Apartment(condominium, 102, "Bloco 1", "Pedro Ivo"));
             _items.Add(new Apartment(condominium, 103, "Bloco 1", "Pedro Ivo"));
+            _items.Add(new Apartment(null, 101, "Bloco 1", "Pedro Ivo"));
 
         }
 
@@ -30,6 +31,12 @@ namespace ApartmentsManager.Tests.Repositories
         {
             return _items.AsQueryable().Where(ApartmentQueries.GetAll(user));
         }
+
+        public IEnumerable<Apartment> GetAllWithoutCondominium(string user)
+        {
+            return _items.AsQueryable().Where(ApartmentQueries.GetAllWithoutCondominium(user));
+        }
+
         public Apartment GetById(Guid id, string user)
         {
             return new Apartment(null, 1925, "Bloco 1", "Pedro Ivo");

@@ -44,9 +44,19 @@ namespace ApartmentsManager.Tests.Repositories
             return _items.AsQueryable().Where(ResidentQueries.GetAllActive(user));
         }
 
+        public IEnumerable<Resident> GetAllByApartment(string user, Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Resident> GetAllInactive(string user)
         {
             return _items.AsQueryable().Where(ResidentQueries.GetAllInactive(user));
+        }
+
+        public IEnumerable<Resident> GetAllWithoutApartment(string user)
+        {
+            throw new NotImplementedException();
         }
 
         public Resident GetById(Guid id, string user)

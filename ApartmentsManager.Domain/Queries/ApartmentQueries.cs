@@ -20,5 +20,10 @@ namespace ApartmentsManager.Domain.Queries
         {
             return apartment => apartment.User == user && !apartment.Active;
         }
+
+        public static Expression<Func<Apartment, bool>> GetAllWithoutCondominium(string user)
+        {
+            return apartment => apartment.User == user && apartment.Condominium == null;
+        }
     }
 }

@@ -58,6 +58,7 @@ namespace ApartmentsManager.Domain.Entities
                 }
 
                 _residents.Add(resident);
+                resident.AddApartment(this);
                 Updated = DateTime.Now;
             }
         }

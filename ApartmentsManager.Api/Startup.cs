@@ -48,13 +48,13 @@ namespace ApartmentsManager.Api
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = "https://securetoken.google.com/kipler-apartments-manager";
+                    options.Authority = "https://securetoken.google.com/apartments-manager";
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidIssuer = "https://securetoken.google.com/kipler-apartments-manager",
+                        ValidIssuer = "https://securetoken.google.com/apartments-manager",
                         ValidateAudience = true,
-                        ValidAudience = "kipler-apartments-manager",
+                        ValidAudience = "apartments-manager",
                         ValidateLifetime = true
                     };
                 });

@@ -33,9 +33,19 @@ namespace ApartmentsManager.Infra.Repositories
             return _context.Residents.AsNoTracking().Where(ResidentQueries.GetAllActive(user)).OrderBy(x => x.Name);
         }
 
+        public IEnumerable<Resident> GetAllByApartment(string user, Guid id)
+        {
+            return _context.Residents.Include("Apartment").AsNoTracking().Where(ResidentQueries.GetAllByApartment(user, id)).OrderBy(x => x.Name);
+        }
+
         public IEnumerable<Resident> GetAllInactive(string user)
         {
             return _context.Residents.AsNoTracking().Where(ResidentQueries.GetAllInactive(user)).OrderBy(x => x.Name);
+        }
+
+        public IEnumerable<Resident> GetAllWithoutApartment(string user)
+        {
+            return _context.Residents.Include("Apartment").Where(ResidentQueries.GetAllWithoutApartment(user)).OrderBy(x => x.Name);
         }
 
         public Resident GetById(Guid id, string user)

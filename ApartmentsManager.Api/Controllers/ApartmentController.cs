@@ -21,7 +21,7 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] ApartmentHandler handler
         )
         {
-            command.User = "Pedro Ivo";
+            command.User = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = (GenericCommandResult)handler.Handle(command);
             return result;
         }
@@ -33,8 +33,20 @@ namespace ApartmentsManager.Api.Controllers
             [FromServices] IMapper mapper
         )
         {
-            var user = "Pedro Ivo";
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
             var result = repository.GetAll(user).ToList();
+            return mapper.Map<List<GetApartmentQueryResult>>(result);
+        }
+
+        [HttpGet]
+        [Route("without-condominium")]
+        public IEnumerable<GetApartmentQueryResult> GetAllWithoutCondominium(
+            [FromServices] IApartmentRepository repository,
+            [FromServices] IMapper mapper
+        )
+        {
+            var user = User.Claims.FirstOrDefault(x => x.Type == "user_id")?.Value;
+            var result = repository.GetAllWithoutCondominium(user).ToList();
             return mapper.Map<List<GetApartmentQueryResult>>(result);
         }
     }

@@ -31,7 +31,7 @@ namespace ApartmentsManager.Infra.Repositories
 
         public IEnumerable<Condominium> GetAllActive(string user)
         {
-            return _context.Condominiums.AsNoTracking().Where(CondominiumQueries.GetAllActive(user)).OrderBy(x => x.Name);
+            return _context.Condominiums.AsNoTracking().Include("Apartments").Where(CondominiumQueries.GetAllActive(user)).OrderBy(x => x.Name);
         }
 
         public IEnumerable<Condominium> GetAllInactive(string user)
